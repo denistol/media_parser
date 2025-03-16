@@ -1,5 +1,6 @@
 use anyhow::{Context, Result};
 use futures::future::join_all;
+use json::merge_json_files;
 use media_list::{MediaItem, get_media_list};
 use scraper::{ElementRef, Html, Selector};
 use serde::{Deserialize, Serialize};
@@ -10,6 +11,7 @@ use std::{
 use tokio::task;
 use url::Url;
 mod headers;
+mod json;
 mod media_list;
 
 use headers::get_headers;
@@ -26,7 +28,7 @@ impl NewsItem {
         let mut hasher = DefaultHasher::new();
         title.hash(&mut hasher);
         link.hash(&mut hasher);
-        let hash = format!("{:x}", hasher.finish()); // Хеш в виде строки (hex)
+        let hash = format!("{:x}", hasher.finish());
 
         Self { title, link, hash }
     }
@@ -105,8 +107,8 @@ async fn main() -> Result<()> {
     let mut tasks = vec![];
 
     for media in media_list {
-        let client = client.clone(); // Clone client for each task
-        let media = media.clone(); // Clone media item for each task
+        let client = client.clone();
+        let media = media.clone();
 
         let task = task::spawn(async move {
             let headers = get_headers().unwrap();
@@ -130,8 +132,9 @@ async fn main() -> Result<()> {
         tasks.push(task);
     }
 
-    // Wait for all tasks to finish
     join_all(tasks).await;
+
+    merge_json_files("./json", "./json/all.json").expect("JSON merge error");
 
     Ok(())
 }
