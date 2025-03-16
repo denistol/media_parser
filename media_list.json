@@ -1,0 +1,114 @@
+[
+    {
+        "url": "https://www.5.ua/",
+        "name": "5 канал",
+        "container_selector": ".nf-latestnews",
+        "item_selector": ".nf-latestnews-post",
+        "title_selector": ".nf-latestnews-post-lnk"
+    },
+    {
+        "url": "https://www.pravda.com.ua/",
+        "name": "Українська правда",
+        "container_selector": ".container_sub_news_wrapper",
+        "item_selector": ".article_header",
+        "title_selector": "span[data-vr-headline='']"
+    },
+    {
+        "url": "https://tsn.ua/",
+        "name": "ТСН",
+        "container_selector": ".l-sidebar__body",
+        "item_selector": ".c-card__title",
+        "title_selector": "a"
+    },
+    {
+        "url": "https://www.rbc.ua/ukr",
+        "name": "РБК-Украина",
+        "container_selector": ".nano-content",
+        "item_selector": ".item",
+        "title_selector": "a"
+    },
+    {
+        "url": "https://www.bbc.com/ukrainian",
+        "name": "ВВС Украина",
+        "container_selector": "ul",
+        "item_selector": "li",
+        "title_selector": "a"
+    },
+    {
+        "url": "https://news.liga.net/ua",
+        "name": "ЛІГА.net",
+        "container_selector": ".news-list-page__content",
+        "item_selector": "article",
+        "title_selector": "h4"
+    },
+    {
+        "url": "https://interfax.com.ua/",
+        "name": "Інтерфакс-Україна",
+        "container_selector": ".articles-list",
+        "item_selector": ".article",
+        "title_selector": "a"
+    },
+    {
+        "url": "https://24tv.ua/",
+        "name": "Україна 24",
+        "container_selector": ".clear-list.news-list",
+        "item_selector": "li",
+        "title_selector": "a"
+    },
+    {
+        "url": "https://glavcom.ua/",
+        "name": "Главком",
+        "container_selector": ".news_grid_wrapper",
+        "item_selector": ".article_news",
+        "title_selector": "a"
+    },
+    {
+        "url": "https://1newsone.com.ua/",
+        "name": "NewsOne",
+        "container_selector": "ul.news-article",
+        "item_selector": "li.news-article-item",
+        "title_selector": "a"
+    },
+    {
+        "url": "https://www.unian.ua/detail/all_news",
+        "name": "УНІАН",
+        "container_selector": ".left-column",
+        "item_selector": ".list-thumbs__item",
+        "title_selector": "a"
+    },
+    {
+        "url": "https://fakty.ua/",
+        "name": "Факты",
+        "container_selector": "ul.pink",
+        "item_selector": "li",
+        "title_selector": "a"
+    },
+    {
+        "url": "https://espreso.tv/news",
+        "name": "Еспресо",
+        "container_selector": "ul.news_page_similar_content__items",
+        "item_selector": "li.news_page_similar_content__item",
+        "title_selector": "a"
+    },
+    {
+        "url": "https://112.ua/",
+        "name": "112 Україна",
+        "container_selector": ".left__bar.sidebar",
+        "item_selector": ".aside__item",
+        "title_selector": "a"
+    },
+    {
+        "url": "https://gazeta.ua/",
+        "name": "Газета.ua",
+        "container_selector": "#stream-simple",
+        "item_selector": "section.item",
+        "title_selector": "a"
+    },
+    {
+        "url": "https://prm.ua/",
+        "name": "Телеканал \"Прямий\"",
+        "container_selector": ".feed__loop.js_news-loop",
+        "item_selector": "article",
+        "title_selector": "a"
+    }
+]
