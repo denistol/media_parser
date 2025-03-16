@@ -2,7 +2,7 @@ use std::fs::read_to_string;
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct MediaItem {
     pub name: String,
     pub url: String,

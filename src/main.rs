@@ -1,8 +1,13 @@
 use anyhow::{Context, Result};
+use futures::future::join_all;
 use media_list::{MediaItem, get_media_list};
 use scraper::{ElementRef, Html, Selector};
 use serde::{Deserialize, Serialize};
-use std::{fs, hash::{DefaultHasher, Hash, Hasher}};
+use std::{
+    fs,
+    hash::{DefaultHasher, Hash, Hasher},
+};
+use tokio::task;
 use url::Url;
 mod headers;
 mod media_list;
@@ -97,24 +102,36 @@ async fn main() -> Result<()> {
         fs::create_dir("./json").context("Create JSON directory error")?;
     }
 
+    let mut tasks = vec![];
+
     for media in media_list {
-        let headers = get_headers()?;
-        let content = client.get(&media.url).headers(headers).send().await;
+        let client = client.clone(); // Clone client for each task
+        let media = media.clone(); // Clone media item for each task
 
-        match content {
-            Ok(resp) => {
-                let content = resp.text().await.unwrap();
-                let res = parse(&content, &media);
+        let task = task::spawn(async move {
+            let headers = get_headers().unwrap();
+            let content = client.get(&media.url).headers(headers).send().await;
 
-                if res.is_ok() {
-                    println!("[*] Parsing done {}", &media.name);
+            match content {
+                Ok(resp) => {
+                    let content = resp.text().await.unwrap();
+                    let res = parse(&content, &media);
+
+                    if res.is_ok() {
+                        println!("[*] Parsing done {}", &media.name);
+                    }
+                }
+                _ => {
+                    println!("{} - {} Request error", &media.name, &media.url);
                 }
             }
-            _ => {
-                println!("{} - {} Request error", &media.name, &media.url);
-            }
-        }
+        });
+
+        tasks.push(task);
     }
+
+    // Wait for all tasks to finish
+    join_all(tasks).await;
 
     Ok(())
 }
